@@ -36,7 +36,7 @@ describe('handlers', () => {
   });
 
   test('complete job deletes a job', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await client.query(DISABLE_TRIGGERS);
 
       const {
@@ -48,7 +48,9 @@ describe('handlers', () => {
 
       await onSuccess(row.id);
 
-      const { rows: matchingRows } = await client.query(
+      const {
+        rows: matchingRows
+      } = await client.query(
         'select * from assemble_worker.jobs where id = $1',
         [row.id]
       );
@@ -61,7 +63,7 @@ describe('handlers', () => {
   });
 
   test('complete many job deletes a job', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await client.query(DISABLE_TRIGGERS);
 
       const {
@@ -80,7 +82,9 @@ describe('handlers', () => {
 
       await onSuccessMany([jobOne.id, jobTwo.id]);
 
-      const { rows: matchingRows } = await client.query(
+      const {
+        rows: matchingRows
+      } = await client.query(
         'select * from assemble_worker.jobs where id = ANY($1)',
         [[jobOne.id, jobTwo.id]]
       );
@@ -93,7 +97,7 @@ describe('handlers', () => {
   });
 
   test('fail job requeues the job', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await client.query(DISABLE_TRIGGERS);
 
       const {
@@ -105,7 +109,9 @@ describe('handlers', () => {
 
       await onFailure(row.id, TEST_ERROR);
 
-      const { rows: matchingRows } = await client.query(
+      const {
+        rows: matchingRows
+      } = await client.query(
         'select * from assemble_worker.jobs where id = $1',
         [row.id]
       );
@@ -128,7 +134,7 @@ describe('handlers', () => {
   });
 
   test('fail many job requeues the jobs', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await client.query(DISABLE_TRIGGERS);
 
       const {
@@ -147,7 +153,9 @@ describe('handlers', () => {
 
       await onFailureMany([jobOne.id, jobTwo.id], [TEST_ERROR, TEST_ERROR]);
 
-      const { rows: matchingRows } = await client.query(
+      const {
+        rows: matchingRows
+      } = await client.query(
         'select * from assemble_worker.jobs where id = ANY($1)',
         [[jobOne.id, jobTwo.id]]
       );

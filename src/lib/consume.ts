@@ -87,17 +87,17 @@ export function defineConsumer(
       const failureIds = [];
       const failureErrors = [];
 
-      const payloads = messages.map(msg =>
+      const payloads = messages.map((msg) =>
         getPayloadFromMsg(msg, queueName, consumerLogger)
       );
 
       consumerLogger.info(`Running many jobs ${job.one.name}`, {
-        job_ids: payloads.map(j => j.job_id)
+        job_ids: payloads.map((j) => j.job_id)
       });
 
       const results = await job.many(payloads);
 
-      messages.forEach(msg => channel.ack(msg));
+      messages.forEach((msg) => channel.ack(msg));
 
       results.forEach((tuple, idx) => {
         const ok = tuple[0];

@@ -17,7 +17,7 @@ describe('migrate', () => {
   });
 
   test('migration runs', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await migrate(client);
 
       const jobs = await client.query('select * from assemble_worker.jobs;');
@@ -26,7 +26,7 @@ describe('migrate', () => {
   });
 
   test('migration runs a second time with no affect', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await migrate(client);
 
       const jobs = await client.query('select * from assemble_worker.jobs;');

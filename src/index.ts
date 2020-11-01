@@ -31,7 +31,7 @@ export async function run(options: AssembleWorkerOptions) {
   const logger = options.logger ? options.logger : defaultLogger;
 
   if (!skipAutoMigrate) {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await migrate(client);
     });
   }

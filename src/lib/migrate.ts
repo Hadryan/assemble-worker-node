@@ -55,7 +55,7 @@ export async function migrate(client: PoolClient) {
   }
 
   const migrationFiles = (await readdirSync(`${__dirname}/../sql`))
-    .filter(f => f.match(/^[0-9]{6}\.sql$/))
+    .filter((f) => f.match(/^[0-9]{6}\.sql$/))
     .sort();
 
   logger.debug('Found migrations %j', migrationFiles);

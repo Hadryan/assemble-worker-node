@@ -25,7 +25,7 @@ describe('poke', () => {
   });
 
   test('poke sends a message that should be sent - status now running, second poke shouldnt send two', async () => {
-    await withClient(pool, async client => {
+    await withClient(pool, async (client) => {
       await client.query(ENABLE_TEST_MODE);
 
       const oneSecondAgo = new Date();
